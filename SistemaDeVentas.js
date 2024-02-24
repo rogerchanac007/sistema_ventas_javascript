@@ -4,7 +4,7 @@ class Producto{
     constructor(nombre, precio){
         this._nombre = nombre;
         this._precio = precio;
-        this.id = ++ Producto.contadorProducto;
+        this._id = ++ Producto.contadorProducto;
     }
 
     get nombre(){
@@ -24,10 +24,40 @@ class Producto{
     }
 
     toString(){
-        return `${this._nombre} con el precio $${this._precio}`
+        return `${this._id}--${this._nombre} -- con el precio $${this._precio}`
+    }
+}
+
+class Venta{
+    static contadorVenta = 0;
+
+    constructor(){
+        this._id = ++Venta.contadorVenta;
+        this._productos = [];
+    }
+
+    agregarProducto(producto){
+        this._productos.push(producto)
+    }
+
+    mostrarTotal(){
+        let total = 0;
+        for(let i in this._productos){
+            total += this._productos[i].precio
+        }
+        return total;
+    }
+
+    mostrarTicket(){
+        return `Gracias por su compra.\nCompra No. ${this._id}\n`
     }
 }
 
 let producto1 = new Producto("Cafe", 30);
 let producto2 = new Producto("Azucar", 25);
-console.log(producto1.toString());
+let venta1 = new Venta();
+venta1.agregarProducto(producto1);
+venta1.agregarProducto(producto2);
+console.log(venta1.mostrarTicket());
+
+
